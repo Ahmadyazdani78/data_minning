@@ -1,0 +1,21 @@
+lmm <- glm(as.factor(X.1) ~ ., data = train.df, family = "binomial")
+summary(lmm)
+dim(valid.df)
+
+View(valid.df)
+
+dim(train.df)
+View(train.df)
+pred_leg <-predict(lmm , valid.df )
+#pred_valid
+pred_valid <- as.factor(ifelse(as.numeric(predict(lmm , valid.df ,  type="response")) > 0.4 ,1 , 0))
+#print(as.factor(pred))
+#print(as.factor(valid.df$X.1)
+#table(pred_valid)
+#table(as.factor(valid.df$X.1))
+confusionMatrix(pred_valid , as.factor(valid.df$X.1))
+pred_train <- as.factor(ifelse(predict(lmm ,  train.df, type="response")>0.4,1,0))
+#print(pred_train)
+#print(as.factor(train.df$X.1))
+confusionMatrix(pred_train  , as.factor(train.df$X.1) )
+#print(pred)
